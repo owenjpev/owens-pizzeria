@@ -91,4 +91,21 @@ function loadRoutes(app, folderPath, baseRoute = "/api") {
 loadRoutes(app, routesPath);
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`API server running on port ${port}!`));
+
+async function start() {
+    if (process.env.NODE_ENV === "production") {
+        const next = require("next");
+
+        const clientDir = path.join(__dirname, "..", "client");
+        const nextApp = next({ dev: false, dir: clientDir });
+        const handle = nextApp.getRequestHandler();
+
+        await nextApp.prepare();
+
+        app.all("*", (req, res) => handle(req, res));
+    }
+    
+    app.listen(port, () => console.log(`Server running on port ${port}!`));
+}
+
+start();
