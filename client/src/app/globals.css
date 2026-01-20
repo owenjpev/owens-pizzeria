@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+.font-body {
+    font-family: "Instrument Sans";
+    letter-spacing: -0.5px;
+    font-weight: 500;
+    color: #252525;
+}
+
+.font-title {
+    font-family: "Cal Sans";
+    letter-spacing: 2px;
+    line-height: 120%;
+}
+
+.title-text-shadow {
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #e5e5e5 0%, #f3f3f3 50%, #e5e5e5 100%);
+    background-size: 200% 100%;
+    animation: skeleton-flash 1.2s ease-in-out infinite;
+}
+
+@keyframes skeleton-flash {
+    0% {
+        background-position: 200% 0;
+        opacity: 0.6;
+    }
+    50% {
+        background-position: -200% 0;
+        opacity: 1;
+    }
+    100% {
+        background-position: 200% 0;
+        opacity: 0.6;
+    }
+}
+
+@media (max-width: 768px) {
+    .title-text-shadow {
+        text-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
+    }
+}
