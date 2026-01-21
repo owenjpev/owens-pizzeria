@@ -13,7 +13,7 @@ const app = express();
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
 });
 
 const ALLOW_ORIGINS = [
@@ -109,7 +109,7 @@ async function start() {
             if (req.path.startsWith("/api")) {
                 return res.status(404).json({ error: "API route not found" });
             }
-            
+
             return handle(req, res);
         });
 
