@@ -11,7 +11,10 @@ const fs = require("fs");
 const path = require("path");
 const app = express();
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === "production" ? {rejectUnauthorized: false } : false
+});
 
 const ALLOW_ORIGINS = [
     "http://localhost:3000",
