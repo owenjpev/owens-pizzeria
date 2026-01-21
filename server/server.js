@@ -105,7 +105,14 @@ async function start() {
 
         await nextApp.prepare();
 
-        app.all("*", (req, res) => handle(req, res));
+        app.all("*", (req, res) => {
+            if (req.path.startsWith("/api")) {
+                return res.status(404).json({ error: "API route not found" });
+            }
+            
+            return handle(req, res);
+        });
+
     }
     
     app.listen(port, () => console.log(`Server running on port ${port}!`));
